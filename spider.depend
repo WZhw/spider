@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1509627974 source:/home/w2hw/Desktop/learnSocket/spider/spider.cpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<queue>
+	<sys/types.h>
+	<sys/socket.h>
+	<sys/stat.h>
+	<arpa/inet.h>
+	<netinet/in.h>
+	<unistd.h>
+	<fcntl.h>
+	<errno.h>
+	"itoa.h"
+	"bloom.h"
+	"url.h"
+
+1509616087 /home/w2hw/Desktop/learnSocket/spider/itoa.h
+
+1509624406 /home/w2hw/Desktop/learnSocket/spider/bloom.h
+	<stdlib.h>
+	<assert.h>
+	<stdio.h>
+	<unistd.h>
+	<fcntl.h>
+	<sys/types.h>
+	<math.h>
+	<string.h>
+	<rpc/des_crypt.h>
+	<limits.h>
+	<errno.h>
+	<string>
+
+1509628539 /home/w2hw/Desktop/learnSocket/spider/url.h
+
