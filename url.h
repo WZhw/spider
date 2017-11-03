@@ -6,11 +6,9 @@ int getPath(char currenturl[]){
     int i=20;
     int j=0;
 
-    if (currenturl[20]=='/' && currenturl[21]!='\0'){
+    if (currenturl[20]=='/' && currenturl[21]!='\0'){// https://new.sohu.com/20171102/anhui.shtml 这种类型
         while(currenturl[i]!='\0'){
-            path[j]=currenturl[i];
-            i++;
-            j++;
+            path[j++]=currenturl[i++];
         }
         path[j]='\0';
     } else {
@@ -37,11 +35,10 @@ int searchURL(char currentpage[]){
     printf("Open file:%s\n", currentpage);
     if(fp == NULL){
         printf("File open error!\n");
-        return 0;
+        return 1;
     }
 
     while(fgets(readbuf, MAX_PATH_LENGTH, fp)!= NULL){
-        //printf("Read No.%d\n",num++);
         for(i=0; readbuf[i] != '\0'; i++){
             currentchar=readbuf[i];
             switch(state){
@@ -139,7 +136,8 @@ int searchURL(char currentpage[]){
             }
         }
     }
-    return 1;
+    fclose(fp);
+    return 0;
 }
 
 int url2host(char url[],char host[]) {//判断是否是https, 将url中的hosts提取出来

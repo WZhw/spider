@@ -67,13 +67,13 @@ int main(int argc,char* argv[]){
         memset(request, 0, MAX_PATH_LENGTH);
         strcat(request,"GET ");
         if(isIndex == 0){
-            strcat(request,"/ HTTP/1.1\r\nHost:news.sohu.com");
+            strcat(request, "/ HTTP/1.1\r\nHost:news.sohu.com");
         } else {
-            strcat(request,path);
-            strcat(request," HTTP/1.1\r\nHost:news.sohu.com");
+            strcat(request, path);
+            strcat(request, " HTTP/1.1\r\nHost:news.sohu.com");
         }
-        strcat(request,"\r\n");
-        strcat(request,"Connection:Close\r\n\r\n");
+        strcat(request, "\r\n");
+        strcat(request, "Connection:Close\r\n\r\n");
 
         socket_client = socket(AF_INET,SOCK_STREAM,0);
 
@@ -110,8 +110,8 @@ int main(int argc,char* argv[]){
         strcat(result, ".txt");
 
         memset(filename, 0, MAX_PATH_LENGTH);
-        itoa(num++,filename,10);
-        strcat(filename,".txt");
+        itoa(num,filename,10);
+        strcat(filename,".shtml");
 
         if((fp = fopen(filename, "w")) == NULL){
             return 15;
@@ -125,7 +125,7 @@ int main(int argc,char* argv[]){
         free(PageBuf);
         fclose(fp);
 
-        printf("num = %d", num++);
+        printf("num = %d    ", num++);
 
         //analysis url
         searchURL(filename);

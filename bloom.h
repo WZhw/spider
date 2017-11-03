@@ -15,13 +15,16 @@
 #include<string>
 using namespace std;
 
-#define MAX_URLPATH_NUM	1000000	/*url path数目的上限(必须是1000的整倍数) */
+#define MAX_URLPATH_NUM	10000000	/*url path数目的上限(必须是1000的整倍数) */
 
 int p_table[MAX_URLPATH_NUM] = { 0 };
 
 int myEncrypt(char *str, char *key){
 	assert(str != NULL);
 	char *cipher = strdup(str);
+	/*  int ecb_crypt(char *key, char *data, \
+                   unsigned datalen,unsigned mode);
+    */
 	ecb_crypt(key, cipher, strlen(str), DES_ENCRYPT);	/*第一次映射函数采用ecb_crypt */
 	int i;
 	int var = 0;
@@ -36,7 +39,7 @@ int myEncrypt(char *str, char *key){
 /*判断path是否存在过，如果不存在就把它记入PathBloomTable中*/
 int bloomFilter(char *path){
 
-	int mod = 32 * MAX_URLPATH_NUM;
+	int mod = 33 * MAX_URLPATH_NUM;
 	int flag = 0;
 	string salt[] = { "Dm", "VB", "ui", "LK", "uj", "RD", "we", "fc" };
 	int f[8] = { 0 };
@@ -48,13 +51,13 @@ int bloomFilter(char *path){
 		f[i] = myEncrypt(path, key);
 		free(key);
 		srand(f[i]);
-		g[i] = rand() % mod;	/*第一次映射函数采用rand */
-		int index = g[i] / 32;
-		int pos = g[i] % 32;
-		if (p_table[index] & (0x80000000 >> pos))
+		g[i] = rand() % mod;	/* rand() * 33 * MAX_URLPATH_NUM */
+		int index = g[i] / 33;
+		int pos = g[i] % 33;
+		if (p_table[index] & (0x80000000 >> pos))//如果与p_table[index]相同
 			flag++;
 		else
-			p_table[index] |= (0x80000000 >> pos);
+			p_table[index] |= (0x80000000 >> pos);//不同，则添加这一位
 	}
 	if (flag == 8){
 		return 1;
